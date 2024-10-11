@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/react-tictactoe-app/static/css/main.606c96f4.css",
-    "main.js": "/react-tictactoe-app/static/js/main.d0459304.js",
-    "static/js/453.ad0e490e.chunk.js": "/react-tictactoe-app/static/js/453.ad0e490e.chunk.js",
-    "index.html": "/react-tictactoe-app/index.html",
-    "main.606c96f4.css.map": "/react-tictactoe-app/static/css/main.606c96f4.css.map",
-    "main.d0459304.js.map": "/react-tictactoe-app/static/js/main.d0459304.js.map",
-    "453.ad0e490e.chunk.js.map": "/react-tictactoe-app/static/js/453.ad0e490e.chunk.js.map"
+    "main.css": "/react-practice/tictactoe-app/static/css/main.606c96f4.css",
+    "main.js": "/react-practice/tictactoe-app/static/js/main.88bf7947.js",
+    "static/js/453.ad0e490e.chunk.js": "/react-practice/tictactoe-app/static/js/453.ad0e490e.chunk.js",
+    "index.html": "/react-practice/tictactoe-app/index.html",
+    "main.606c96f4.css.map": "/react-practice/tictactoe-app/static/css/main.606c96f4.css.map",
+    "main.88bf7947.js.map": "/react-practice/tictactoe-app/static/js/main.88bf7947.js.map",
+    "453.ad0e490e.chunk.js.map": "/react-practice/tictactoe-app/static/js/453.ad0e490e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.606c96f4.css",
-    "static/js/main.d0459304.js"
+    "static/js/main.88bf7947.js"
   ]
 }
