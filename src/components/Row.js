@@ -1,9 +1,12 @@
 import axios from "../api/axios";
 import React, { useCallback, useEffect, useState } from "react";
 import "./Row.css";
+import MovieModal from "./MovieModal";
 
 function Row({ title, id, fetchUrl }) {
   const [movies, setMovies] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [movieSelected, setMovieSelection] = useState({});
 
   // useCallback => 컴포넌트가 리렌더링 될 떄 재생성을 막아주는 메모이제이션
   // fetchUrl이 바뀔 때 fetchMovieData 새로 생성됨
@@ -16,6 +19,11 @@ function Row({ title, id, fetchUrl }) {
   useEffect(() => {
     fetchMovieData();
   }, [fetchMovieData]);
+
+  const handleClick = (movie) => {
+    setModalOpen(true);
+    setMovieSelection(movie);
+  };
 
   return (
     <div>
@@ -38,6 +46,7 @@ function Row({ title, id, fetchUrl }) {
               className="row__poster"
               src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
               alt={movie.name}
+              onClick={() => handleClick(movie)}
             />
           ))}
         </div>
@@ -52,6 +61,10 @@ function Row({ title, id, fetchUrl }) {
           </span>
         </div>
       </div>
+
+      {modalOpen && (
+        <MovieModal {...movieSelected} setModalOpen={setModalOpen} />
+      )}
     </div>
   );
 }
