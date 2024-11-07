@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { setUser } from "../store/userSlice";
 
 const Nav = () => {
   const [show, setShow] = useState(false);
@@ -8,8 +10,12 @@ const Nav = () => {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.user); // store/index에서 설정한 이름
+
   useEffect(() => {
     handleScroll();
+    testSlice();
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -30,6 +36,28 @@ const Nav = () => {
     navigate(`/search?q=${e.target.value}`);
   };
 
+  const testSlice = () => {
+    // TODO: 로그인 기능을 구현하지 않아 테스트로 작성
+    const result = {
+      uid: "aeri",
+      email: "test@example.com",
+      photoURL: "photo",
+      displayName: "Test User",
+    };
+
+    dispatch(
+      setUser({
+        id: result.uid,
+        email: result.email,
+        photoURL: result.photoURL,
+        displayName: result.displayName,
+      })
+    );
+
+    // remove
+    // dispatch(removeUser());
+  };
+
   return (
     <NavWrapper show={show}>
       <Logo>
@@ -39,6 +67,8 @@ const Nav = () => {
           onClick={() => (window.location.href = "/")}
         />
       </Logo>
+
+      <div>{userData.id}</div>
 
       {pathname === "/" ? (
         <Login>Login</Login>
