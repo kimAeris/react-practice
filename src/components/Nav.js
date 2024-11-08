@@ -3,6 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { setUser } from "../store/userSlice";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+} from "firebase/auth";
 
 const Nav = () => {
   const [show, setShow] = useState(false);
@@ -10,12 +16,30 @@ const Nav = () => {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
 
+  // firebase
+  const auth = getAuth();
+  const provider = new GoogleAuthProvider();
+
+  //store
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user); // store/index에서 설정한 이름
 
+  // 로그인 상태 -> main
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        if (pathname === "/") {
+          navigate("/main");
+        }
+      } else {
+        navigate("/");
+      }
+    });
+  }, [auth, navigate, pathname]);
+
   useEffect(() => {
     handleScroll();
-    testSlice();
+    // testSlice();
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -36,26 +60,15 @@ const Nav = () => {
     navigate(`/search?q=${e.target.value}`);
   };
 
-  const testSlice = () => {
-    // TODO: 로그인 기능을 구현하지 않아 테스트로 작성
-    const result = {
-      uid: "aeri",
-      email: "test@example.com",
-      photoURL: "photo",
-      displayName: "Test User",
-    };
-
-    dispatch(
-      setUser({
-        id: result.uid,
-        email: result.email,
-        photoURL: result.photoURL,
-        displayName: result.displayName,
+  const handleAuth = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        console.log("result", result);
+        dispatch(setUser(result.user));
       })
-    );
-
-    // remove
-    // dispatch(removeUser());
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -67,20 +80,18 @@ const Nav = () => {
           onClick={() => (window.location.href = "/")}
         />
       </Logo>
-
       <div>{userData.id}</div>
-
-      {pathname === "/" ? (
-        <Login>Login</Login>
-      ) : (
-        <Input
-          value={searchValue}
-          onChange={handleChange}
-          className="nav__input"
-          type="text"
-          placeholder="검색해주세요."
-        />
-      )}
+      {/* {pathname === "/" ? ( */}
+      <Login onClick={handleAuth}>Login</Login>
+      {/* ) : ( */}
+      <Input
+        value={searchValue}
+        onChange={handleChange}
+        className="nav__input"
+        type="text"
+        placeholder="검색해주세요."
+      />
+      {/* )} */}
     </NavWrapper>
   );
 };
