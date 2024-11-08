@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { persistor, store } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
+import app from "./firebase"; // firebase 연결
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
