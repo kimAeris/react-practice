@@ -40,6 +40,17 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
+  callbacks: {
+    async jwt({ token, user }) {
+      // 아래 session 데이터 token에 return 해줌
+      return { ...token, ...user };
+    },
+    async session({ session, token }) {
+      // 위에서 token을 리턴받으면서 id 속성 추가됨 =>  next-auth.d.ts 에 타입 속성 정의
+      session.user = token;
+      return session;
+    },
+  },
   adapter: PrismaAdapter(prisma),
 };
 

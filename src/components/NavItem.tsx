@@ -5,7 +5,6 @@ import React from "react";
 // ? : mobile 옵셔널을 주기위함
 const NavItem = ({ mobile }: { mobile?: boolean }) => {
   const { data: session, status } = useSession();
-  console.log("session", { session }, status);
   return (
     <ul
       className={`text-md justify-center flex gap-4 w-full items-center ${
