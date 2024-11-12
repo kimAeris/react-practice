@@ -22,7 +22,12 @@ export const authOptions: NextAuthOptions = {
       // 로그인 버튼 누를 시 호출
 
       async authorize(credentials, req) {
-        const user = { id: 1, name: "J Smith", email: "jsmith@example.com" };
+        const user = {
+          id: 1,
+          name: "J Smith",
+          email: "jsmith@example.com",
+          role: "User",
+        };
 
         if (user) {
           // useSession => data.user 에 저장됨
@@ -39,6 +44,10 @@ export const authOptions: NextAuthOptions = {
   ],
   session: {
     strategy: "jwt",
+  },
+  jwt: {
+    secret: process.env.JWT_SECRET,
+    maxAge: 30 * 24 * 60 * 60, // 30days
   },
   callbacks: {
     async jwt({ token, user }) {
