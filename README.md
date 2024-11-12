@@ -1,3 +1,24 @@
+##
+
+ORM : prisma
+DB : PostgreSQL
+
+[next-auth&prisma Document](https://next-auth.js.org/v3/adapters/prisma)
+
+DB 스키마 생성(Sync Database with Prisma Model) :
+
+```
+npx prisma db push
+```
+
+Docker 실행 :
+
+```
+docker compose up
+```
+
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

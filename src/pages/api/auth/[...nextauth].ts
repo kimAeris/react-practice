@@ -1,0 +1,46 @@
+import NextAuth, { NextAuthOptions } from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+export const authOptions: NextAuthOptions = {
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+    CredentialsProvider({
+      // The name to display on the sign in form (e.g. 'Sign in with...')
+      name: "Credentials",
+      credentials: {
+        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        password: { label: "Password", type: "password" },
+      },
+      // 로그인 버튼 누를 시 호출
+
+      async authorize(credentials, req) {
+        const user = { id: 1, name: "J Smith", email: "jsmith@example.com" };
+
+        if (user) {
+          // useSession => data.user 에 저장됨
+          return user;
+        } else {
+          // If you return null or false then the credentials will be rejected
+          return null;
+          // You can also Reject this callback with an Error or with a URL:
+          // throw new Error('error message') // Redirect to error page
+          // throw '/path/to/redirect'        // Redirect to a URL
+        }
+      },
+    }),
+  ],
+  session: {
+    strategy: "jwt",
+  },
+  adapter: PrismaAdapter(prisma),
+};
+
+export default NextAuth(authOptions);
