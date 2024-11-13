@@ -9,6 +9,7 @@ import Heading from "@/components/Heading";
 import ImageUpload from "@/components/ImageUpload";
 import { categories } from "@/components/categories/Categories";
 import CategoryInput from "@/components/categories/CategoryInput";
+import dynamic from "next/dynamic";
 
 const ProductUploadPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -34,6 +35,15 @@ const ProductUploadPage = () => {
 
   const imageSrc = watch("imageSrc");
   const category = watch("category");
+
+  const latitude = watch("latitude");
+  const longitude = watch("longitude");
+
+  // Dynamic Import : 모듈을 빌드 타임이 아닌 런타임에서 불러온다.
+  // 초기 로딩 시 사이즈가 크거나 초기 로딩에 사용하지 않을 때
+  const KakaoMap = dynamic(() => import("../../../components/KakaoMap"), {
+    ssr: false,
+  });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {};
 
@@ -112,7 +122,11 @@ const ProductUploadPage = () => {
 
           <hr />
 
-          {/* KaKaoMap */}
+          <KakaoMap
+            setCustomValue={setCustomValue}
+            latitude={latitude}
+            longitude={longitude}
+          />
 
           <Button label="상품 생성하기" />
         </form>

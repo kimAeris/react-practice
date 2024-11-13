@@ -3,7 +3,9 @@
 ORM : prisma
 DB : PostgreSQL
 
-[next-auth&prisma Document](https://next-auth.js.org/v3/adapters/prisma)
+[next-auth&prisma Document](https://next-auth.js.org/v3/adapters/prisma)  
+[Kakao Developers](https://developers.kakao.com/)  
+[Kakao Map](https://react-kakao-maps-sdk.jaeseokim.dev/docs/intro)
 
 DB 스키마 생성(Sync Database with Prisma Model) :
 
