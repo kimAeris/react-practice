@@ -10,8 +10,11 @@ import ImageUpload from "@/components/ImageUpload";
 import { categories } from "@/components/categories/Categories";
 import CategoryInput from "@/components/categories/CategoryInput";
 import dynamic from "next/dynamic";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const ProductUploadPage = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -45,7 +48,23 @@ const ProductUploadPage = () => {
     ssr: false,
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {};
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    setIsLoading(true);
+
+    data.imageSrc = "test"; //저장안돼서 임시 추가
+
+    axios
+      .post("/api/products", data)
+      .then((res) => {
+        router.push(`/products/${res.data.id}`);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value);
