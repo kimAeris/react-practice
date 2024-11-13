@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import prisma from "@/helpers/prismadb";
+import bcrypt from "bcryptjs";
 
 // const prisma = new PrismaClient();
 
@@ -17,18 +18,34 @@ export const authOptions: NextAuthOptions = {
       // The name to display on the sign in form (e.g. 'Sign in with...')
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
       // 로그인 버튼 누를 시 호출
 
       async authorize(credentials, req) {
-        const user = {
-          id: 1,
-          name: "J Smith",
-          email: "jsmith@example.com",
-          role: "User",
-        };
+        if (!credentials?.email || !credentials.password) {
+          throw new Error("Invalid email or password");
+        }
+
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        });
+
+        if (!user || !user?.hashedPassword) {
+          throw new Error("Invalid email or password");
+        }
+
+        const isCorrectPassword = await bcrypt.compare(
+          credentials.password,
+          user.hashedPassword
+        );
+
+        if (!isCorrectPassword) {
+          throw new Error("Invalid password");
+        }
 
         if (user) {
           // useSession => data.user 에 저장됨
