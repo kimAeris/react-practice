@@ -3,10 +3,16 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import NavItem from "./NavItem";
+import { User } from "@prisma/client";
 
-const Navbar = () => {
+interface NavbarProps {
+  currentUser?: User | null;
+}
+
+const Navbar = ({ currentUser }: NavbarProps) => {
   const [menu, setMenu] = useState(false);
 
+  console.log("currentUser", currentUser);
   const handleMenu = () => {
     setMenu(!menu);
   };
@@ -29,13 +35,13 @@ const Navbar = () => {
 
         {/* small 보다 클 때 block */}
         <div className="hidden sm:block">
-          <NavItem />
+          <NavItem currentUser={currentUser} />
         </div>
 
         {/* small보다 클 때 hidden */}
         <div className="block sm:hidden">
           {/* 사이즈에 따른 분기처리를 위한 mobile props 전달 */}
-          {menu === false ? null : <NavItem mobile />}
+          {menu === false ? null : <NavItem mobile currentUser={currentUser} />}
         </div>
       </div>
     </nav>
