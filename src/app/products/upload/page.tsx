@@ -6,6 +6,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Button from "@/components/Button";
 import Container from "@/components/Container";
 import Heading from "@/components/Heading";
+import ImageUpload from "@/components/ImageUpload";
 
 const ProductUploadPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +30,13 @@ const ProductUploadPage = () => {
     },
   });
 
+  const imageSrc = watch("imageSrc");
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {};
+
+  const setCustomValue = (id: string, value: any) => {
+    setValue(id, value);
+  };
 
   return (
     <Container>
@@ -37,7 +44,13 @@ const ProductUploadPage = () => {
         <form className="flex flex-col gap-8" onSubmit={handleSubmit(onSubmit)}>
           <Heading title="Product Upload" subtitle="upload your product" />
 
-          {/* Image Upload */}
+          <ImageUpload
+            onChange={(value) => {
+              console.log("value--", value);
+              setCustomValue("imageSrc", value);
+            }}
+            value={imageSrc}
+          />
 
           <hr />
 
