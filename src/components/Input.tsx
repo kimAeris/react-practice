@@ -39,6 +39,7 @@ const Input: React.FC<InputProps> = ({
           p-4 
           pt-6 
           font-light
+          border-2
           bg-white
           rounded-md
           outline-none
@@ -67,7 +68,9 @@ const Input: React.FC<InputProps> = ({
           peer-focus:translate-y-4
           ${errors?.[id] ? "text-rose-500" : "text-zinc-400"}
         `}
-      ></label>
+      >
+        {label}
+      </label>
     </div>
   );
 };
