@@ -2,6 +2,7 @@ import { User } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
+import { toast } from "react-toastify";
 
 interface UseFavorite {
   productId: string;
@@ -20,7 +21,7 @@ const useFavorite = ({ productId, currentUser }: UseFavorite) => {
     e.stopPropagation();
 
     if (!currentUser) {
-      // toast.error('로그인이 필요합니다.');
+      toast.error("로그인이 필요합니다.");
       return;
     }
 
@@ -35,9 +36,9 @@ const useFavorite = ({ productId, currentUser }: UseFavorite) => {
 
       await request();
       router.refresh();
-      // toast.success('Success');
+      toast.success("Success");
     } catch (error) {
-      // toast.error('Something went wrong.');
+      toast.error("Something went wrong.");
     }
   };
 

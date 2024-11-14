@@ -5,6 +5,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import getCurrentUser from "./actions/getCurrentUser";
 import Script from "next/script";
+import ToastProvider from "@/components/ToastProvider";
 // import { SessionProvider } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -27,6 +28,7 @@ export default async function RootLayout({
         {/* useSession 사용 위함 */}
         {/* <SessionProvider> */}
         <Navbar currentUser={currentUser} />
+        <ToastProvider />
         {children}
         {/* </SessionProvider> */}
         <Script
