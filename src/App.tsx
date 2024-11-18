@@ -1,8 +1,9 @@
-import { Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import "./App.css";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import styled from "@emotion/styled";
 import { blue, green, red } from "@mui/material/colors";
+import Grid from "@mui/material/Grid2";
 
 function App() {
   return (
@@ -39,19 +40,56 @@ function App() {
       </Root>
 
       <Grid container spacing={2}>
-        <Grid item xs={6} md={8}>
+        <Grid size={{ xs: 6, md: 8 }}>
           <Typography>xs=6 md=8</Typography>
         </Grid>
-        <Grid item xs={6} md={4}>
+        <Grid size={{ xs: 6, md: 4 }}>
           <Typography>xs=6 md=4</Typography>
         </Grid>
-        <Grid item xs={6} md={4}>
+        <Grid size={{ xs: 6, md: 4 }}>
           <Typography>xs=6 md=4</Typography>
         </Grid>
-        <Grid item xs={6} md={8}>
+        <Grid size={{ xs: 6, md: 8 }}>
           <Typography>xs=6 md=8</Typography>
         </Grid>
       </Grid>
+
+      <Stack direction="row" spacing={2} justifyContent="space-between">
+        <Box
+          sx={{
+            display: { xs: "none", sm: "block" },
+            width: 300,
+            height: 300,
+            backgroundColor: "primary.main",
+            "&:hover": {
+              backgroundColor: "secondary.main",
+              opacity: [0.9, 0.8, 0.7], // 반응형 opacity
+            },
+          }}
+        />
+        <Box
+          sx={{
+            width: 300,
+            height: 300,
+            backgroundColor: "primary.main",
+            "&:hover": {
+              backgroundColor: "secondary.main",
+              opacity: [0.9, 0.8, 0.7], // 반응형 opacity
+            },
+          }}
+        />
+        <Box
+          sx={{
+            width: 300,
+            height: 300,
+            backgroundColor: "primary.main",
+            "&:hover": {
+              backgroundColor: "secondary.main",
+              opacity: [0.9, 0.8, 0.7], // 반응형 opacity
+            },
+          }}
+        />
+      </Stack>
     </div>
   );
 }
