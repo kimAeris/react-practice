@@ -2,6 +2,7 @@ import { Button, Typography } from "@mui/material";
 import "./App.css";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import styled from "@emotion/styled";
+import { blue, green, red } from "@mui/material/colors";
 
 function App() {
   return (
@@ -30,10 +31,28 @@ function App() {
         H2 우아
       </Typography>
 
+      <Root>
+        <Typography>down(md): red</Typography>
+        <Typography>up(md): blue</Typography>
+        <Typography>up(lg): green</Typography>
+      </Root>
+
       <h2>우아</h2>
     </div>
   );
 }
+
+const Root = styled(`div`)(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    backgroundColor: red[100],
+  },
+  [theme.breakpoints.up("md")]: {
+    backgroundColor: blue[100],
+  },
+  [theme.breakpoints.up("lg")]: {
+    backgroundColor: green[100],
+  },
+}));
 
 const CustomThemeButton = styled(Button)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
