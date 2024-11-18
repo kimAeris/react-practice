@@ -1,4 +1,4 @@
-import { Button, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import "./App.css";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import styled from "@emotion/styled";
@@ -30,6 +30,7 @@ function App() {
       <Typography variant="h2" gutterBottom>
         H2 우아
       </Typography>
+      <h2>우아</h2>
 
       <Root>
         <Typography>down(md): red</Typography>
@@ -37,7 +38,20 @@ function App() {
         <Typography>up(lg): green</Typography>
       </Root>
 
-      <h2>우아</h2>
+      <Grid container spacing={2}>
+        <Grid item xs={6} md={8}>
+          <Typography>xs=6 md=8</Typography>
+        </Grid>
+        <Grid item xs={6} md={4}>
+          <Typography>xs=6 md=4</Typography>
+        </Grid>
+        <Grid item xs={6} md={4}>
+          <Typography>xs=6 md=4</Typography>
+        </Grid>
+        <Grid item xs={6} md={8}>
+          <Typography>xs=6 md=8</Typography>
+        </Grid>
+      </Grid>
     </div>
   );
 }
