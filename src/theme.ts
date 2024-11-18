@@ -6,6 +6,7 @@ export const theme = createTheme({
     fontFamily: "Pretendard, Roboto, sans-serif",
   },
   palette: {
+    mode: "light",
     primary: {
       main: purple[500],
     },

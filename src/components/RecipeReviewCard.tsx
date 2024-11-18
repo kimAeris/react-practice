@@ -13,7 +13,7 @@ import { red } from "@mui/material/colors";
 
 export default function RecipeReviewCard() {
   return (
-    <Card>
+    <Card sx={{ margin: 3 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">

@@ -7,10 +7,12 @@ import {
   ImageListItem,
   Switch,
 } from "@mui/material";
-import { useState } from "react";
-
-const RightBody = () => {
-  const [mode, setMode] = useState("light");
+import React from "react";
+interface ModeProps {
+  mode: "light" | "dark";
+  setMode: React.Dispatch<React.SetStateAction<"light" | "dark">>; // useState의 상태 변경 함수 타입
+}
+const RightBody: React.FC<ModeProps> = ({ mode, setMode }) => {
   return (
     <Box flex={1} p={2}>
       <FormGroup>
